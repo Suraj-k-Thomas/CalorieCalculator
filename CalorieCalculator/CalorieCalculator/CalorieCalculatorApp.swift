@@ -11,7 +11,7 @@ import SwiftUI
 struct CalorieCalculatorApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CalorieTrackerView()
         }
     }
 }
