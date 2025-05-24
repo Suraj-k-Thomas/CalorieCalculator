@@ -7,40 +7,40 @@
 	objects = {
 
 /* Begin PBXContainerItemProxy section */
-		00E9B88B2DE1CEAD00B50BE9 /* PBXContainerItemProxy */ = {
+		00E9B8DF2DE1D29900B50BE9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 00E9B8722DE1CEAC00B50BE9 /* Project object */;
+			containerPortal = 00E9B8C62DE1D29800B50BE9 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 00E9B8792DE1CEAC00B50BE9;
+			remoteGlobalIDString = 00E9B8CD2DE1D29800B50BE9;
 			remoteInfo = CalorieCalculator;
 		};
-		00E9B8952DE1CEAD00B50BE9 /* PBXContainerItemProxy */ = {
+		00E9B8E92DE1D29900B50BE9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 00E9B8722DE1CEAC00B50BE9 /* Project object */;
+			containerPortal = 00E9B8C62DE1D29800B50BE9 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 00E9B8792DE1CEAC00B50BE9;
+			remoteGlobalIDString = 00E9B8CD2DE1D29800B50BE9;
 			remoteInfo = CalorieCalculator;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E9B87A2DE1CEAC00B50BE9 /* CalorieCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalorieCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		00E9B88A2DE1CEAD00B50BE9 /* CalorieCalculatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalorieCalculatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		00E9B8942DE1CEAD00B50BE9 /* CalorieCalculatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalorieCalculatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E9B8CE2DE1D29800B50BE9 /* CalorieCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalorieCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E9B8DE2DE1D29900B50BE9 /* CalorieCalculatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalorieCalculatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E9B8E82DE1D29900B50BE9 /* CalorieCalculatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalorieCalculatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		00E9B87C2DE1CEAC00B50BE9 /* CalorieCalculator */ = {
+		00E9B8D02DE1D29800B50BE9 /* CalorieCalculator */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = CalorieCalculator;
 			sourceTree = "<group>";
 		};
-		00E9B88D2DE1CEAD00B50BE9 /* CalorieCalculatorTests */ = {
+		00E9B8E12DE1D29900B50BE9 /* CalorieCalculatorTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = CalorieCalculatorTests;
 			sourceTree = "<group>";
 		};
-		00E9B8972DE1CEAD00B50BE9 /* CalorieCalculatorUITests */ = {
+		00E9B8EB2DE1D29900B50BE9 /* CalorieCalculatorUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = CalorieCalculatorUITests;
 			sourceTree = "<group>";
@@ -48,21 +48,21 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		00E9B8772DE1CEAC00B50BE9 /* Frameworks */ = {
+		00E9B8CB2DE1D29800B50BE9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		00E9B8872DE1CEAD00B50BE9 /* Frameworks */ = {
+		00E9B8DB2DE1D29900B50BE9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		00E9B8912DE1CEAD00B50BE9 /* Frameworks */ = {
+		00E9B8E52DE1D29900B50BE9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -72,22 +72,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E9B8712DE1CEAC00B50BE9 = {
+		00E9B8C52DE1D29800B50BE9 = {
 			isa = PBXGroup;
 			children = (
-				00E9B87C2DE1CEAC00B50BE9 /* CalorieCalculator */,
-				00E9B88D2DE1CEAD00B50BE9 /* CalorieCalculatorTests */,
-				00E9B8972DE1CEAD00B50BE9 /* CalorieCalculatorUITests */,
-				00E9B87B2DE1CEAC00B50BE9 /* Products */,
+				00E9B8D02DE1D29800B50BE9 /* CalorieCalculator */,
+				00E9B8E12DE1D29900B50BE9 /* CalorieCalculatorTests */,
+				00E9B8EB2DE1D29900B50BE9 /* CalorieCalculatorUITests */,
+				00E9B8CF2DE1D29800B50BE9 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		00E9B87B2DE1CEAC00B50BE9 /* Products */ = {
+		00E9B8CF2DE1D29800B50BE9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				00E9B87A2DE1CEAC00B50BE9 /* CalorieCalculator.app */,
-				00E9B88A2DE1CEAD00B50BE9 /* CalorieCalculatorTests.xctest */,
-				00E9B8942DE1CEAD00B50BE9 /* CalorieCalculatorUITests.xctest */,
+				00E9B8CE2DE1D29800B50BE9 /* CalorieCalculator.app */,
+				00E9B8DE2DE1D29900B50BE9 /* CalorieCalculatorTests.xctest */,
+				00E9B8E82DE1D29900B50BE9 /* CalorieCalculatorUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,134 +95,134 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E9B8792DE1CEAC00B50BE9 /* CalorieCalculator */ = {
+		00E9B8CD2DE1D29800B50BE9 /* CalorieCalculator */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E9B89E2DE1CEAD00B50BE9 /* Build configuration list for PBXNativeTarget "CalorieCalculator" */;
+			buildConfigurationList = 00E9B8F22DE1D29900B50BE9 /* Build configuration list for PBXNativeTarget "CalorieCalculator" */;
 			buildPhases = (
-				00E9B8762DE1CEAC00B50BE9 /* Sources */,
-				00E9B8772DE1CEAC00B50BE9 /* Frameworks */,
-				00E9B8782DE1CEAC00B50BE9 /* Resources */,
+				00E9B8CA2DE1D29800B50BE9 /* Sources */,
+				00E9B8CB2DE1D29800B50BE9 /* Frameworks */,
+				00E9B8CC2DE1D29800B50BE9 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				00E9B87C2DE1CEAC00B50BE9 /* CalorieCalculator */,
+				00E9B8D02DE1D29800B50BE9 /* CalorieCalculator */,
 			);
 			name = CalorieCalculator;
 			packageProductDependencies = (
 			);
 			productName = CalorieCalculator;
-			productReference = 00E9B87A2DE1CEAC00B50BE9 /* CalorieCalculator.app */;
+			productReference = 00E9B8CE2DE1D29800B50BE9 /* CalorieCalculator.app */;
 			productType = "com.apple.product-type.application";
 		};
-		00E9B8892DE1CEAD00B50BE9 /* CalorieCalculatorTests */ = {
+		00E9B8DD2DE1D29900B50BE9 /* CalorieCalculatorTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E9B8A12DE1CEAD00B50BE9 /* Build configuration list for PBXNativeTarget "CalorieCalculatorTests" */;
+			buildConfigurationList = 00E9B8F52DE1D29900B50BE9 /* Build configuration list for PBXNativeTarget "CalorieCalculatorTests" */;
 			buildPhases = (
-				00E9B8862DE1CEAD00B50BE9 /* Sources */,
-				00E9B8872DE1CEAD00B50BE9 /* Frameworks */,
-				00E9B8882DE1CEAD00B50BE9 /* Resources */,
+				00E9B8DA2DE1D29900B50BE9 /* Sources */,
+				00E9B8DB2DE1D29900B50BE9 /* Frameworks */,
+				00E9B8DC2DE1D29900B50BE9 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				00E9B88C2DE1CEAD00B50BE9 /* PBXTargetDependency */,
+				00E9B8E02DE1D29900B50BE9 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				00E9B88D2DE1CEAD00B50BE9 /* CalorieCalculatorTests */,
+				00E9B8E12DE1D29900B50BE9 /* CalorieCalculatorTests */,
 			);
 			name = CalorieCalculatorTests;
 			packageProductDependencies = (
 			);
 			productName = CalorieCalculatorTests;
-			productReference = 00E9B88A2DE1CEAD00B50BE9 /* CalorieCalculatorTests.xctest */;
+			productReference = 00E9B8DE2DE1D29900B50BE9 /* CalorieCalculatorTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		00E9B8932DE1CEAD00B50BE9 /* CalorieCalculatorUITests */ = {
+		00E9B8E72DE1D29900B50BE9 /* CalorieCalculatorUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E9B8A42DE1CEAD00B50BE9 /* Build configuration list for PBXNativeTarget "CalorieCalculatorUITests" */;
+			buildConfigurationList = 00E9B8F82DE1D29900B50BE9 /* Build configuration list for PBXNativeTarget "CalorieCalculatorUITests" */;
 			buildPhases = (
-				00E9B8902DE1CEAD00B50BE9 /* Sources */,
-				00E9B8912DE1CEAD00B50BE9 /* Frameworks */,
-				00E9B8922DE1CEAD00B50BE9 /* Resources */,
+				00E9B8E42DE1D29900B50BE9 /* Sources */,
+				00E9B8E52DE1D29900B50BE9 /* Frameworks */,
+				00E9B8E62DE1D29900B50BE9 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				00E9B8962DE1CEAD00B50BE9 /* PBXTargetDependency */,
+				00E9B8EA2DE1D29900B50BE9 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				00E9B8972DE1CEAD00B50BE9 /* CalorieCalculatorUITests */,
+				00E9B8EB2DE1D29900B50BE9 /* CalorieCalculatorUITests */,
 			);
 			name = CalorieCalculatorUITests;
 			packageProductDependencies = (
 			);
 			productName = CalorieCalculatorUITests;
-			productReference = 00E9B8942DE1CEAD00B50BE9 /* CalorieCalculatorUITests.xctest */;
+			productReference = 00E9B8E82DE1D29900B50BE9 /* CalorieCalculatorUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		00E9B8722DE1CEAC00B50BE9 /* Project object */ = {
+		00E9B8C62DE1D29800B50BE9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
-					00E9B8792DE1CEAC00B50BE9 = {
+					00E9B8CD2DE1D29800B50BE9 = {
 						CreatedOnToolsVersion = 16.2;
 					};
-					00E9B8892DE1CEAD00B50BE9 = {
+					00E9B8DD2DE1D29900B50BE9 = {
 						CreatedOnToolsVersion = 16.2;
-						TestTargetID = 00E9B8792DE1CEAC00B50BE9;
+						TestTargetID = 00E9B8CD2DE1D29800B50BE9;
 					};
-					00E9B8932DE1CEAD00B50BE9 = {
+					00E9B8E72DE1D29900B50BE9 = {
 						CreatedOnToolsVersion = 16.2;
-						TestTargetID = 00E9B8792DE1CEAC00B50BE9;
+						TestTargetID = 00E9B8CD2DE1D29800B50BE9;
 					};
 				};
 			};
-			buildConfigurationList = 00E9B8752DE1CEAC00B50BE9 /* Build configuration list for PBXProject "CalorieCalculator" */;
+			buildConfigurationList = 00E9B8C92DE1D29800B50BE9 /* Build configuration list for PBXProject "CalorieCalculator" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 00E9B8712DE1CEAC00B50BE9;
+			mainGroup = 00E9B8C52DE1D29800B50BE9;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 00E9B87B2DE1CEAC00B50BE9 /* Products */;
+			productRefGroup = 00E9B8CF2DE1D29800B50BE9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				00E9B8792DE1CEAC00B50BE9 /* CalorieCalculator */,
-				00E9B8892DE1CEAD00B50BE9 /* CalorieCalculatorTests */,
-				00E9B8932DE1CEAD00B50BE9 /* CalorieCalculatorUITests */,
+				00E9B8CD2DE1D29800B50BE9 /* CalorieCalculator */,
+				00E9B8DD2DE1D29900B50BE9 /* CalorieCalculatorTests */,
+				00E9B8E72DE1D29900B50BE9 /* CalorieCalculatorUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		00E9B8782DE1CEAC00B50BE9 /* Resources */ = {
+		00E9B8CC2DE1D29800B50BE9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		00E9B8882DE1CEAD00B50BE9 /* Resources */ = {
+		00E9B8DC2DE1D29900B50BE9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		00E9B8922DE1CEAD00B50BE9 /* Resources */ = {
+		00E9B8E62DE1D29900B50BE9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -232,21 +232,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		00E9B8762DE1CEAC00B50BE9 /* Sources */ = {
+		00E9B8CA2DE1D29800B50BE9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		00E9B8862DE1CEAD00B50BE9 /* Sources */ = {
+		00E9B8DA2DE1D29900B50BE9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		00E9B8902DE1CEAD00B50BE9 /* Sources */ = {
+		00E9B8E42DE1D29900B50BE9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -256,20 +256,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		00E9B88C2DE1CEAD00B50BE9 /* PBXTargetDependency */ = {
+		00E9B8E02DE1D29900B50BE9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 00E9B8792DE1CEAC00B50BE9 /* CalorieCalculator */;
-			targetProxy = 00E9B88B2DE1CEAD00B50BE9 /* PBXContainerItemProxy */;
+			target = 00E9B8CD2DE1D29800B50BE9 /* CalorieCalculator */;
+			targetProxy = 00E9B8DF2DE1D29900B50BE9 /* PBXContainerItemProxy */;
 		};
-		00E9B8962DE1CEAD00B50BE9 /* PBXTargetDependency */ = {
+		00E9B8EA2DE1D29900B50BE9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 00E9B8792DE1CEAC00B50BE9 /* CalorieCalculator */;
-			targetProxy = 00E9B8952DE1CEAD00B50BE9 /* PBXContainerItemProxy */;
+			target = 00E9B8CD2DE1D29800B50BE9 /* CalorieCalculator */;
+			targetProxy = 00E9B8E92DE1D29900B50BE9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		00E9B89C2DE1CEAD00B50BE9 /* Debug */ = {
+		00E9B8F02DE1D29900B50BE9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -332,7 +332,7 @@
 			};
 			name = Debug;
 		};
-		00E9B89D2DE1CEAD00B50BE9 /* Release */ = {
+		00E9B8F12DE1D29900B50BE9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -388,7 +388,7 @@
 			};
 			name = Release;
 		};
-		00E9B89F2DE1CEAD00B50BE9 /* Debug */ = {
+		00E9B8F32DE1D29900B50BE9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -416,7 +416,7 @@
 			};
 			name = Debug;
 		};
-		00E9B8A02DE1CEAD00B50BE9 /* Release */ = {
+		00E9B8F42DE1D29900B50BE9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -444,7 +444,7 @@
 			};
 			name = Release;
 		};
-		00E9B8A22DE1CEAD00B50BE9 /* Debug */ = {
+		00E9B8F62DE1D29900B50BE9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -462,7 +462,7 @@
 			};
 			name = Debug;
 		};
-		00E9B8A32DE1CEAD00B50BE9 /* Release */ = {
+		00E9B8F72DE1D29900B50BE9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -480,7 +480,7 @@
 			};
 			name = Release;
 		};
-		00E9B8A52DE1CEAD00B50BE9 /* Debug */ = {
+		00E9B8F92DE1D29900B50BE9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -496,7 +496,7 @@
 			};
 			name = Debug;
 		};
-		00E9B8A62DE1CEAD00B50BE9 /* Release */ = {
+		00E9B8FA2DE1D29900B50BE9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -515,43 +515,43 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E9B8752DE1CEAC00B50BE9 /* Build configuration list for PBXProject "CalorieCalculator" */ = {
+		00E9B8C92DE1D29800B50BE9 /* Build configuration list for PBXProject "CalorieCalculator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				00E9B89C2DE1CEAD00B50BE9 /* Debug */,
-				00E9B89D2DE1CEAD00B50BE9 /* Release */,
+				00E9B8F02DE1D29900B50BE9 /* Debug */,
+				00E9B8F12DE1D29900B50BE9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		00E9B89E2DE1CEAD00B50BE9 /* Build configuration list for PBXNativeTarget "CalorieCalculator" */ = {
+		00E9B8F22DE1D29900B50BE9 /* Build configuration list for PBXNativeTarget "CalorieCalculator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				00E9B89F2DE1CEAD00B50BE9 /* Debug */,
-				00E9B8A02DE1CEAD00B50BE9 /* Release */,
+				00E9B8F32DE1D29900B50BE9 /* Debug */,
+				00E9B8F42DE1D29900B50BE9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		00E9B8A12DE1CEAD00B50BE9 /* Build configuration list for PBXNativeTarget "CalorieCalculatorTests" */ = {
+		00E9B8F52DE1D29900B50BE9 /* Build configuration list for PBXNativeTarget "CalorieCalculatorTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				00E9B8A22DE1CEAD00B50BE9 /* Debug */,
-				00E9B8A32DE1CEAD00B50BE9 /* Release */,
+				00E9B8F62DE1D29900B50BE9 /* Debug */,
+				00E9B8F72DE1D29900B50BE9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		00E9B8A42DE1CEAD00B50BE9 /* Build configuration list for PBXNativeTarget "CalorieCalculatorUITests" */ = {
+		00E9B8F82DE1D29900B50BE9 /* Build configuration list for PBXNativeTarget "CalorieCalculatorUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				00E9B8A52DE1CEAD00B50BE9 /* Debug */,
-				00E9B8A62DE1CEAD00B50BE9 /* Release */,
+				00E9B8F92DE1D29900B50BE9 /* Debug */,
+				00E9B8FA2DE1D29900B50BE9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 00E9B8722DE1CEAC00B50BE9 /* Project object */;
+	rootObject = 00E9B8C62DE1D29800B50BE9 /* Project object */;
 }
