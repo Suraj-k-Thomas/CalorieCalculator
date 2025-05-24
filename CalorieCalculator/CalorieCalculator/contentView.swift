@@ -1,24 +1,25 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var fillProgress: CGFloat = 0.5
+    @State private var calorieValue: Double = 750 // Start mid-point
 
     var body: some View {
         VStack(spacing: 40) {
             Text("Calorie Fill Level")
                 .font(.title)
 
-            SilhouetteFillView(fillProgress: fillProgress)
+            // Map calories (0–1500) to fillProgress (0–1)
+            SilhouetteFillView(fillProgress: CGFloat(calorieValue / 1500))
                 .frame(width: 200, height: 400)
 
             VStack(spacing: 10) {
-                Slider(value: $fillProgress, in: 0...1)
+                Slider(value: $calorieValue, in: 0...1500, step: 1)
                     .padding()
-                    .onChange(of: fillProgress) {
-                        print("Slider value: \(fillProgress)")
+                    .onChange(of: calorieValue) {
+                        print("Calories: \(Int(calorieValue))")
                     }
 
-                Text("Slider Value: \(Int(fillProgress * 100))%")
+                Text("Calories: \(Int(calorieValue)) kcal")
                     .font(.caption)
                     .foregroundColor(.gray)
             }
@@ -32,15 +33,14 @@ struct ContentView: View {
 }
 
 struct SilhouetteFillView: View {
-    var fillProgress: CGFloat // 0.0 to 1.0
+    var fillProgress: CGFloat // Normalized 0.0 to 1.0
 
     var body: some View {
         GeometryReader { geo in
-            let maxFillRatio: CGFloat = 0.85 // fill only up to neck at max slider value
+            let maxFillRatio: CGFloat = 0.85 // max fill reaches neck only
             let cappedFill = fillProgress * maxFillRatio
 
             ZStack {
-                // Optional faint silhouette outline
                 Image("human_silhouette")
                     .resizable()
                     .scaledToFit()
@@ -68,5 +68,4 @@ struct SilhouetteFillView: View {
         }
     }
 }
-
 
