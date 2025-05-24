@@ -193,3 +193,7 @@ struct BottomTabItem: View {
     }
 }
 
+
+#Preview {
+    CalorieTrackerView()
+}
