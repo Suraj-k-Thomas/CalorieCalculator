@@ -1,0 +1,68 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+._*
+
+# Thumbnails
+Thumbs.db
+Desktop.ini
+
+# Xcode
+*.xcuserstate
+*.xcuserdata/
+*.xcuserdatad/
+*.moved-aside
+*.swp
+*~.nib
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+
+# Derived data
+DerivedData/
+build/
+
+# SwiftPM
+.swiftpm/
+.build/
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Firebase Crashlytics
+*.dSYM.zip
+*.dSYM
+
+# Archive
+*.xcarchive
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# User-specific files
+*.orig
+*.hmap
+
+# Swift Package Index
+Package.resolved
+
+# Output
+*.log
+*.xcresult
+:wq
+
