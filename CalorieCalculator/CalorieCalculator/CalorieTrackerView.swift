@@ -3,6 +3,13 @@ import SwiftUI
 struct CalorieTrackerView: View {
     @State private var selectedDate = Date()
     @State private var showDatePicker = false
+    @State private var selectedTab: Tab = .calorie
+
+    enum Tab {
+        case calorie
+        case recipe
+    }
+
 
     var body: some View {
         VStack(spacing: 16) {
@@ -33,6 +40,7 @@ struct CalorieTrackerView: View {
                 }
             }
             .padding(.horizontal)
+            
 
             // Green Card
             VStack(spacing: 12) {
@@ -77,6 +85,14 @@ struct CalorieTrackerView: View {
                 }
             }
             .padding(.horizontal)
+            if selectedTab == .calorie {
+                // Show calorie tracker
+                Text("Calorie Tracker Screen")
+            } else if selectedTab == .recipe {
+                // Show recipe screen
+                Text("Recipe Screen Placeholder")
+            }
+
 
             // Placeholder Progress Cards
             HStack(spacing: 16) {
@@ -86,18 +102,27 @@ struct CalorieTrackerView: View {
             }
             .padding(.horizontal)
 
+
+            
             Spacer()
 
             // Floating Button
             ZStack {
+
+                
                 HStack {
                     Spacer()
-                    BottomTabItem(title: "Calorie", image: "flame.fill", isActive: true)
+                    BottomTabItem(title: "Calorie", image: "flame.fill", isActive: selectedTab == .calorie) {
+                        selectedTab = .calorie
+                    }
                     Spacer()
                     Spacer()
-                    BottomTabItem(title: "Recipe", image: "bell", isActive: false)
+                    BottomTabItem(title: "Recipe", image: "book.fill", isActive: selectedTab == .recipe) {
+                        selectedTab = .recipe
+                    }
                     Spacer()
                 }
+
                 .padding(.vertical, 10)
                 .background(Color.white.shadow(radius: 5))
                 
@@ -180,15 +205,19 @@ struct BottomTabItem: View {
     let title: String
     let image: String
     let isActive: Bool
-
+    let action: () -> Void
+    
     var body: some View {
-        VStack(spacing: 4) {
-            Image(systemName: image)
-                .font(.title2)
-                .foregroundColor(isActive ? .green : .gray)
-            Text(title)
-                .font(.caption)
-                .foregroundColor(isActive ? .green : .gray)
+        Button(action: action) {
+            VStack(spacing: 4) {
+                Image(systemName: image)
+                    .font(.title2)
+                    .foregroundColor(isActive ? .green : .gray)
+                Text(title)
+                    .font(.caption)
+                    .foregroundColor(isActive ? .green : .gray)
+            }
+            .frame(maxWidth: .infinity)
         }
     }
 }
