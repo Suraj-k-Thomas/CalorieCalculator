@@ -9,8 +9,11 @@ struct ContentView: View {
                 .font(.title)
 
             // Map calories (0–1500) to fillProgress (0–1)
-            SilhouetteFillView(fillProgress: CGFloat(calorieValue / 1500))
-                .frame(width: 200, height: 400)
+            SilhouetteFillView(
+                fillProgress: CGFloat(calorieValue / 1500),
+                calorieValue: calorieValue
+            )
+
 
             VStack(spacing: 10) {
                 Slider(value: $calorieValue, in: 0...1500, step: 1)
@@ -34,11 +37,14 @@ struct ContentView: View {
 
 struct SilhouetteFillView: View {
     var fillProgress: CGFloat // Normalized 0.0 to 1.0
+    var calorieValue: Double
 
     var body: some View {
         GeometryReader { geo in
-            let maxFillRatio: CGFloat = 0.85 // max fill reaches neck only
+            let maxFillRatio: CGFloat = 0.95 // max fill reaches neck only
             let cappedFill = fillProgress * maxFillRatio
+            let fillColor: Color = calorieValue < 1200 ? .green : .red
+
 
             ZStack {
                 Image("human_silhouette")
@@ -52,7 +58,7 @@ struct SilhouetteFillView: View {
                     Rectangle()
                         .fill(
                             LinearGradient(
-                                gradient: Gradient(colors: [.red, .red]),
+                                gradient: Gradient(colors: [fillColor, fillColor]),
                                 startPoint: .bottom,
                                 endPoint: .top
                             )
