@@ -4,39 +4,75 @@ import SwiftUI
 
 // CalorieFillView.swift
 struct CalorieFillView: View {
-    @State private var nutrition = NutritionData(calories: 1120, fat: 120, fiber: 220, carbs: 53, protein: 15)
-
+    @State private var nutrition = NutritionData(
+        calories: 1120,
+        fat: 120,
+        fiber: 220,
+        carbs: 53,
+        protein: 15
+    )
     var body: some View {
-        VStack(spacing: 20) {
-            Text("Meal Logged Successfully!!").font(.headline).padding()
+        GeometryReader { geo in
+            let height = geo.size.height
+            let width = geo.size.width
 
-            HStack(alignment: .top) {
-                SilhouetteFillView(fillProgress: nutrition.calorieFillProgress, calorieValue: nutrition.calories)
-                    .frame(width: 200, height: 400)
+            ZStack {
+                LinearGradient(
+                    gradient: Gradient(colors: [.purple, .indigo, .cyan]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea()
 
-                VStack(alignment: .leading, spacing: 20) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("CALORIES").font(.caption).foregroundColor(.white.opacity(0.7))
-                        Text("\(Int(nutrition.calories))/1500")
-                            .font(.title)
-                            .bold()
-                            .foregroundColor(.white)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.5)
+                VStack(spacing: 0) {
+                    Spacer().frame(height: height * 0.06) // Fine-tuned top spacing
+
+                    Text("Meal Logged Successfully!!")
+                        .font(.headline)
+
+                    Spacer().frame(height: height * 0.025) // Precise control
+
+                    HStack(alignment: .top, spacing: width * 0.04) {
+                        SilhouetteFillView(
+                            fillProgress: nutrition.calorieFillProgress,
+                            calorieValue: nutrition.calories
+                        )
+                        .frame(width: width * 0.52, height: height * 0.85)
+
+                        VStack(alignment: .leading, spacing: height * 0.03) {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("CALORIES")
+                                    .font(.caption)
+                                    .foregroundColor(.white.opacity(0.7))
+
+                                Text("\(Int(nutrition.calories))/1500")
+                                    .font(.title)
+                                    .bold()
+                                    .foregroundColor(.white)
+                                    .minimumScaleFactor(0.5)
+                                    .lineLimit(1)
+                            }
+
+                            NutrientProgressView(label: "FAT", value: CGFloat(nutrition.fat), max: 100)
+                            NutrientProgressView(label: "FIBRE", value: CGFloat(nutrition.fiber), max: 100)
+                            NutrientProgressView(label: "CARBS", value: CGFloat(nutrition.carbs), max: 100)
+                            NutrientProgressView(label: "PROTEIN", value: CGFloat(nutrition.protein), max: 100)
+                        }
+                        .frame(height: height * 0.85)
                     }
-                    NutrientProgressView(label: "FAT", value: CGFloat(nutrition.fat), max: 100)
-                    NutrientProgressView(label: "FIBRE", value: CGFloat(nutrition.fiber), max: 100)
-                    NutrientProgressView(label: "CARBS", value: CGFloat(nutrition.carbs), max: 100)
-                    NutrientProgressView(label: "PROTEIN", value: CGFloat(nutrition.protein), max: 100)
+                    .padding(.horizontal)
+
+                    Spacer()
                 }
-                .padding(.leading, 20)
             }
-            Spacer()
         }
-        .padding()
-        .background(LinearGradient(gradient: Gradient(colors: [.purple, .indigo, .cyan]), startPoint: .top, endPoint: .bottom))
     }
+
+
+
+
 }
+
 
 
 
