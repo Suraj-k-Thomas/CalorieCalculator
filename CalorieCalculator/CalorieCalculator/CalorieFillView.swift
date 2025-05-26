@@ -25,13 +25,8 @@ struct CalorieFillView: View {
                 .ignoresSafeArea()
 
                 VStack(spacing: 0) {
-                    Spacer().frame(height: height * 0.06) // Fine-tuned top spacing
-
                     Text("Meal Logged Successfully!!")
                         .font(.headline)
-
-                    Spacer().frame(height: height * 0.025) // Precise control
-
                     HStack(alignment: .top, spacing: width * 0.04) {
                         SilhouetteFillView(
                             fillProgress: nutrition.calorieFillProgress,
