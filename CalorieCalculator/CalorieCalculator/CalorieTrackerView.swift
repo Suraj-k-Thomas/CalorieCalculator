@@ -1,55 +1,43 @@
-import SwiftUI
 
+import SwiftUI
+// CalorieTrackerView.swift
 struct CalorieTrackerView: View {
     @State private var selectedDate = Date()
     @State private var showDatePicker = false
     @State private var selectedTab: Tab = .calorie
+    @State private var showFillView = false
 
     enum Tab {
         case calorie
         case recipe
     }
 
-
     var body: some View {
         VStack(spacing: 16) {
-            
-            // Top Bar
             HStack {
-                Text("Calorie")
-                    .font(.title)
-                    .bold()
+                Text("Calorie").font(.title).bold()
                 Spacer()
                 HStack(spacing: 12) {
                     HStack {
                         Image(systemName: "crown.fill")
-                        Text("5")
-                            .bold()
+                        Text("5").bold()
                     }
                     .padding(8)
                     .background(LinearGradient(colors: [.green, .black], startPoint: .topLeading, endPoint: .bottomTrailing))
                     .foregroundColor(.white)
                     .clipShape(Capsule())
-                    
-                    Button(action: {
-                        // Settings tapped
-                    }) {
+
+                    Button(action: {}) {
                         Image(systemName: "gearshape.fill")
                             .foregroundColor(.black)
                     }
                 }
             }
             .padding(.horizontal)
-            
 
-            // Green Card
             VStack(spacing: 12) {
-                Text("Daily Calories Goal!")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                
-                Text("kcal/day")
-                    .foregroundColor(.white.opacity(0.8))
+                Text("Daily Calories Goal!").font(.headline).foregroundColor(.white)
+                Text("kcal/day").foregroundColor(.white.opacity(0.8))
 
                 HStack(spacing: 20) {
                     MacroBox(title: "Carbs")
@@ -63,21 +51,12 @@ struct CalorieTrackerView: View {
             .cornerRadius(25)
             .padding(.horizontal)
 
-            // Progress Section
             HStack {
-                Button(action: {
-                    showDatePicker.toggle()
-                }) {
-                    Text("Your Progress")
-                        .font(.title3)
-                        .bold()
+                Button(action: { showDatePicker.toggle() }) {
+                    Text("Your Progress").font(.title3).bold()
                 }
-
                 Spacer()
-
-                Button(action: {
-                    showDatePicker.toggle()
-                }) {
+                Button(action: { showDatePicker.toggle() }) {
                     HStack {
                         Text(formattedDate(selectedDate))
                         Image(systemName: "calendar")
@@ -85,16 +64,13 @@ struct CalorieTrackerView: View {
                 }
             }
             .padding(.horizontal)
+
             if selectedTab == .calorie {
-                // Show calorie tracker
                 Text("Calorie Tracker Screen")
             } else if selectedTab == .recipe {
-                // Show recipe screen
                 Text("Recipe Screen Placeholder")
             }
 
-
-            // Placeholder Progress Cards
             HStack(spacing: 16) {
                 ProgressCard(title: "Calorie", unit: "kcal/day", percentage: 0)
                 ProgressCard(title: "Protein", unit: "grams", percentage: 0)
@@ -102,14 +78,9 @@ struct CalorieTrackerView: View {
             }
             .padding(.horizontal)
 
-
-            
             Spacer()
 
-            // Floating Button
             ZStack {
-
-                
                 HStack {
                     Spacer()
                     BottomTabItem(title: "Calorie", image: "flame.fill", isActive: selectedTab == .calorie) {
@@ -122,13 +93,10 @@ struct CalorieTrackerView: View {
                     }
                     Spacer()
                 }
-
                 .padding(.vertical, 10)
                 .background(Color.white.shadow(radius: 5))
-                
-                Button(action: {
-                    // Open add entry sheet
-                }) {
+
+                Button(action: { showFillView = true }) {
                     Image(systemName: "plus")
                         .font(.title)
                         .padding()
@@ -145,6 +113,9 @@ struct CalorieTrackerView: View {
                 .datePickerStyle(.graphical)
                 .padding()
         }
+        .navigationDestination(isPresented: $showFillView) {
+            CalorieFillView()
+        }
     }
 
     private func formattedDate(_ date: Date) -> String {
@@ -152,77 +123,4 @@ struct CalorieTrackerView: View {
         formatter.dateFormat = "dd-MM-yyyy"
         return formatter.string(from: date)
     }
-}
-
-// MARK: - Components
-
-struct MacroBox: View {
-    let title: String
-
-    var body: some View {
-        VStack {
-            Text(title)
-                .bold()
-                .foregroundColor(.black)
-            Text("grams")
-                .foregroundColor(.gray)
-        }
-        .padding()
-        .background(Color.white.opacity(0.9))
-        .cornerRadius(16)
-    }
-}
-
-struct ProgressCard: View {
-    let title: String
-    let unit: String
-    let percentage: Double
-
-    var body: some View {
-        VStack {
-            Circle()
-                .trim(from: 0, to: CGFloat(percentage))
-                .stroke(Color.green, lineWidth: 6)
-                .frame(width: 50, height: 50)
-                .rotationEffect(.degrees(-90))
-                .overlay(Text("\(Int(percentage * 100))%").font(.caption))
-
-            Text(title)
-                .bold()
-            Text("0 \(unit)")
-                .font(.footnote)
-                .foregroundColor(.gray)
-        }
-        .frame(maxWidth: .infinity)
-        .padding()
-        .background(Color.white)
-        .cornerRadius(20)
-        .shadow(radius: 2)
-    }
-}
-
-struct BottomTabItem: View {
-    let title: String
-    let image: String
-    let isActive: Bool
-    let action: () -> Void
-    
-    var body: some View {
-        Button(action: action) {
-            VStack(spacing: 4) {
-                Image(systemName: image)
-                    .font(.title2)
-                    .foregroundColor(isActive ? .green : .gray)
-                Text(title)
-                    .font(.caption)
-                    .foregroundColor(isActive ? .green : .gray)
-            }
-            .frame(maxWidth: .infinity)
-        }
-    }
-}
-
-
-#Preview {
-    CalorieTrackerView()
 }
