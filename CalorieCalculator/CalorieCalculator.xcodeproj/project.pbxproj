@@ -29,6 +29,16 @@
 		00E9B8E82DE1D29900B50BE9 /* CalorieCalculatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalorieCalculatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		00ECD1BE2DE5BD4300773678 /* Exceptions for "CalorieCalculatorUITests" folder in "CalorieCalculatorTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				FoodApiTests.swift,
+			);
+			target = 00E9B8DD2DE1D29900B50BE9 /* CalorieCalculatorTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		00E9B8D02DE1D29800B50BE9 /* CalorieCalculator */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -42,6 +52,9 @@
 		};
 		00E9B8EB2DE1D29900B50BE9 /* CalorieCalculatorUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				00ECD1BE2DE5BD4300773678 /* Exceptions for "CalorieCalculatorUITests" folder in "CalorieCalculatorTests" target */,
+			);
 			path = CalorieCalculatorUITests;
 			sourceTree = "<group>";
 		};
