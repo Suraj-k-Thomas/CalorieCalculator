@@ -90,6 +90,7 @@ class FoodLoader {
                     completion(.failure(.decoding(error)))
                 }
             case let .failure(error):
+                print("Network error: \(error)")
                 completion(.failure(.network(error)))
             }
         }
