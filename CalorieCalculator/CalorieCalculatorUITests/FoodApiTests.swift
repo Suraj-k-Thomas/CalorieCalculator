@@ -7,6 +7,34 @@
 
 import XCTest
 
+
+enum FoodLoaderError: Error, Equatable {
+    case encodingFailed
+    case network(Error)
+    case decoding(Error)
+    case partialFailure
+
+    static func == (lhs: FoodLoaderError, rhs: FoodLoaderError) -> Bool {
+        switch (lhs, rhs) {
+        case (.encodingFailed, .encodingFailed),
+             (.partialFailure, .partialFailure):
+            return true
+        case (.network, .network),
+             (.decoding, .decoding):
+            return true // don't compare internal errors
+        default:
+            return false
+        }
+    }
+}
+
+enum FoodLoadResult {
+    case success(FoodTotals)
+    case failure(FoodLoaderError)
+}
+
+
+
 struct Food: Decodable, Equatable,Encodable {
     let food_name: String
     let nf_calories: Double
@@ -39,7 +67,7 @@ class FoodLoader {
         self.client = client
     }
 
-    func load(query: String, completion: @escaping (Result<[Food], Error>) -> Void) {
+    func load(query: String, completion: @escaping (Result<[Food], FoodLoaderError>) -> Void) {
         let headers = [
             "x-app-id": config.appID,
             "x-app-key": config.appKey,
@@ -48,7 +76,7 @@ class FoodLoader {
 
       //  let body = try? JSONEncoder().encode(["query": query])
         guard let body = try? JSONEncoder().encode(["query": query]) else {
-               completion(.failure(NSError(domain: "Encoding", code: -1)))
+            completion(.failure(.encodingFailed))
                return
            }
 
@@ -59,16 +87,16 @@ class FoodLoader {
                     let decoded = try JSONDecoder().decode(FoodResponse.self, from: data)
                     completion(.success(decoded.foods))
                 } catch {
-                    completion(.failure(error))
+                    completion(.failure(.decoding(error)))
                 }
             case let .failure(error):
-                completion(.failure(error))
+                completion(.failure(.network(error)))
             }
         }
     }
 
     // 👇 Optional Aggregator
-    func loadAndAggregate(queries: [String], completion: @escaping (Result<FoodTotals, Error>) -> Void) {
+    func loadAndAggregate(queries: [String], completion: @escaping (Result<FoodTotals, FoodLoaderError>) -> Void) {
         var total = FoodTotals.empty
         var completed = 0
         var errors: [Error] = []
@@ -89,7 +117,11 @@ class FoodLoader {
                     if errors.isEmpty {
                         completion(.success(total))
                     } else {
-                        completion(.failure(errors.first!)) // Or return multiple errors
+                        if let first = errors.first as? FoodLoaderError {
+                            completion(.failure(first))
+                        } else {
+                            completion(.failure(.partialFailure))
+                        }
                     }
                 }
             }
@@ -161,10 +193,14 @@ final class FoodLoaderTests: XCTestCase {
 
         sut.load(query: "1 egg") { result in
             switch result {
-            case .failure:
-                break
+            case .failure(let error):
+                if case .network = error {
+                    // Success: we got a network error
+                } else {
+                    XCTFail("Expected network error, got \(error)")
+                }
             default:
-                XCTFail("Expected failure")
+                XCTFail("Expected failure, got \(result)")
             }
             exp.fulfill()
         }
@@ -172,6 +208,7 @@ final class FoodLoaderTests: XCTestCase {
         client.complete(with: NSError(domain: "Test", code: 1))
         wait(for: [exp], timeout: 1.0)
     }
+
 
     func test_loadAndAggregate_sumsNutritionCorrectly() {
         let (sut, client) = makeSUT()
