@@ -36,11 +36,22 @@ import Foundation
 struct Food: Decodable, Identifiable {
     let food_name: String
     let nf_calories: Double?
+    let nf_protein: Double?
+    let nf_total_fat: Double?
+    let nf_total_carbohydrate: Double?
     let serving_qty: Double?
     let serving_unit: String?
+    let photo: FoodPhoto?
 
     var id: String { food_name }
 }
+
+struct FoodPhoto: Decodable {
+    let thumb: String?
+}
+
+
+
 
 struct InstantSearchResponse: Decodable {
     let common: [Food]
@@ -181,31 +192,6 @@ struct FoodSearchView: View {
                         .padding()
                 }
 
-//                if !viewModel.suggestions.isEmpty {
-//                    ScrollView {
-//                        VStack(alignment: .leading, spacing: 0) {
-//                            ForEach(viewModel.suggestions.prefix(5)) { food in
-//                                Button {
-//                                    viewModel.selectSuggestion(food.food_name)
-//                                } label: {
-//                                    HStack {
-//                                        Text(food.food_name)
-//                                            .foregroundColor(.primary)
-//                                            .padding()
-//                                        Spacer()
-//                                    }
-//                                }
-//                                Divider()
-//                            }
-//                        }
-//                        .background(Color.white)
-//                        .cornerRadius(8)
-//                        .shadow(radius: 4)
-//                        .padding([.horizontal, .bottom])
-//                    }
-//                    .frame(maxHeight: 200)
-//                }
-                
                 if !viewModel.suggestions.isEmpty {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 0) {
@@ -213,15 +199,32 @@ struct FoodSearchView: View {
                                 Button {
                                     viewModel.selectSuggestion(food.food_name)
                                 } label: {
-                                    VStack(alignment: .leading) {
-                                        Text(food.food_name.capitalized)
-                                            .font(.body)
-                                            .padding(.vertical, 4)
+                                    HStack(alignment: .top, spacing: 12) {
+                                        if let imageUrl = food.photo?.thumb, let url = URL(string: imageUrl) {
+                                            AsyncImage(url: url) { image in
+                                                image
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fill)
+                                                    .frame(width: 48, height: 48)
+                                                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                                            } placeholder: {
+                                                Rectangle()
+                                                    .fill(Color.gray.opacity(0.2))
+                                                    .frame(width: 48, height: 48)
+                                                    .cornerRadius(8)
+                                            }
+                                        }
 
-                                        if let qty = food.serving_qty, let unit = food.serving_unit {
-                                            Text("Serving: \(qty.cleanString) \(unit)")
-                                                .font(.caption)
-                                                .foregroundColor(.secondary)
+                                        VStack(alignment: .leading) {
+                                            Text(food.food_name.capitalized)
+                                                .font(.body)
+                                                .padding(.vertical, 4)
+
+                                            if let qty = food.serving_qty, let unit = food.serving_unit {
+                                                Text("Serving: \(qty.cleanString) \(unit)")
+                                                    .font(.caption)
+                                                    .foregroundColor(.secondary)
+                                            }
                                         }
                                     }
                                     .padding(.horizontal)
@@ -229,6 +232,8 @@ struct FoodSearchView: View {
                                 }
                                 Divider()
                             }
+
+                            
                         }
                         .background(Color.white)
                         .cornerRadius(8)
