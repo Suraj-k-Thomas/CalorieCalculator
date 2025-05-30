@@ -6,8 +6,8 @@ struct CalorieTrackerApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-               // CalorieTrackerView()
-                FoodSearchView()
+                CalorieTrackerView()
+                //FoodSearchView()
             }
         }
     }

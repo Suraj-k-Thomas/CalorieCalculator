@@ -6,7 +6,9 @@ struct CalorieTrackerView: View {
     @State private var showDatePicker = false
     @State private var selectedTab: Tab = .calorie
     @State private var showFillView = false
-
+    @State private var showActionSheet = false
+    @State private var showFoodSearch = false
+    
     enum Tab {
         case calorie
         case recipe
@@ -96,7 +98,9 @@ struct CalorieTrackerView: View {
                 .padding(.vertical, 10)
                 .background(Color.white.shadow(radius: 5))
 
-                Button(action: { showFillView = true }) {
+                Button(action: { showFillView = true
+                    showActionSheet.toggle()
+                }) {
                     Image(systemName: "plus")
                         .font(.title)
                         .padding()
@@ -106,6 +110,18 @@ struct CalorieTrackerView: View {
                         .shadow(radius: 5)
                 }
                 .offset(y: -20)
+                .actionSheet(isPresented: $showActionSheet) {
+                                ActionSheet(title: Text("What would you like to log?"), buttons: [
+                                    .default(Text("🍱 Food")) { showFoodSearch = true },
+                                    .default(Text("🩸 Sugar")) { print("Log sugar") },
+                                    .default(Text("🏋️‍♂️ Exercise")) { print("Log exercise") },
+                                    .default(Text("⚖️ Weight")) { print("Log weight") },
+                                    .cancel()
+                                ])
+                            }
+                .sheet(isPresented: $showFoodSearch) {
+                                FoodSearchView()
+                            }
             }
         }
         .sheet(isPresented: $showDatePicker) {
