@@ -119,9 +119,10 @@ struct CalorieTrackerView: View {
                                     .cancel()
                                 ])
                             }
-                .fullScreenCover(isPresented: $showFoodSearch) {
-                                FoodSearchView()
-                            }
+                
+                .navigationDestination(isPresented: $showFoodSearch) {
+                    FoodSearchView()
+                }
             }
         }
         .sheet(isPresented: $showDatePicker) {
@@ -129,9 +130,6 @@ struct CalorieTrackerView: View {
                 .datePickerStyle(.graphical)
                 .padding()
         }
-//        .navigationDestination(isPresented: $showFillView) {
-//            //CalorieFillView()
-//        }
     }
 
     private func formattedDate(_ date: Date) -> String {
