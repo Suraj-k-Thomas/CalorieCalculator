@@ -30,12 +30,12 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		00ECD1BE2DE5BD4300773678 /* Exceptions for "CalorieCalculatorUITests" folder in "CalorieCalculatorTests" target */ = {
+		003582E02DEF615B009F74A0 /* Exceptions for "CalorieCalculatorTests" folder in "CalorieCalculatorUITests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				FoodApiTests.swift,
 			);
-			target = 00E9B8DD2DE1D29900B50BE9 /* CalorieCalculatorTests */;
+			target = 00E9B8E72DE1D29900B50BE9 /* CalorieCalculatorUITests */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -47,14 +47,14 @@
 		};
 		00E9B8E12DE1D29900B50BE9 /* CalorieCalculatorTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				003582E02DEF615B009F74A0 /* Exceptions for "CalorieCalculatorTests" folder in "CalorieCalculatorUITests" target */,
+			);
 			path = CalorieCalculatorTests;
 			sourceTree = "<group>";
 		};
 		00E9B8EB2DE1D29900B50BE9 /* CalorieCalculatorUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				00ECD1BE2DE5BD4300773678 /* Exceptions for "CalorieCalculatorUITests" folder in "CalorieCalculatorTests" target */,
-			);
 			path = CalorieCalculatorUITests;
 			sourceTree = "<group>";
 		};
