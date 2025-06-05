@@ -206,37 +206,41 @@ struct FoodSearchView: View {
                                 Button {
                                     viewModel.selectSuggestion(food.food_name)
                                 } label: {
-                                    HStack(alignment: .top, spacing: 12) {
+                                    HStack(alignment: .center, spacing: 12) {
                                         if let imageUrl = food.photo?.thumb, let url = URL(string: imageUrl) {
                                             AsyncImage(url: url) { image in
                                                 image
                                                     .resizable()
                                                     .aspectRatio(contentMode: .fill)
-                                                    .frame(width: 48, height: 48)
+                                                    .frame(width: 60, height: 60)
                                                     .clipShape(RoundedRectangle(cornerRadius: 8))
                                             } placeholder: {
                                                 Rectangle()
                                                     .fill(Color.gray.opacity(0.2))
-                                                    .frame(width: 48, height: 48)
+                                                    .frame(width: 60, height: 60)
                                                     .cornerRadius(8)
                                             }
                                         }
 
-                                        VStack(alignment: .leading) {
+                                        VStack(alignment: .leading, spacing: 4) {
                                             Text(food.food_name.capitalized)
                                                 .font(.body)
-                                                .padding(.vertical, 4)
+                                                .fontWeight(.medium)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
 
                                             if let qty = food.serving_qty, let unit = food.serving_unit {
                                                 Text("Serving: \(qty.cleanString) \(unit)")
                                                     .font(.caption)
                                                     .foregroundColor(.secondary)
+                                                    .frame(maxWidth: .infinity, alignment: .leading)
                                             }
                                         }
+                                        .frame(maxHeight: .infinity, alignment: .center)
                                     }
-                                    .padding(.horizontal)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.vertical, 16)
+                                    .frame(maxWidth: .infinity)
                                 }
+
                                 Divider()
                             }
 
