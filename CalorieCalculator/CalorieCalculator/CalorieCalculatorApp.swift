@@ -71,6 +71,7 @@ class FoodSearchViewModel: ObservableObject {
     @Published var suggestions: [Food] = []
     @Published var analyzedFoods: [Food] = []
     @Published var isLoading = false
+    @Published var debounceEnabled = true
 
     private var debounceTimer: AnyCancellable?
     private var dataTask: URLSessionDataTask?
@@ -80,7 +81,10 @@ class FoodSearchViewModel: ObservableObject {
             .removeDuplicates()
             .debounce(for: .milliseconds(400), scheduler: DispatchQueue.main)
             .sink { [weak self] text in
-                self?.handleSearch(for: text)
+                guard let self = self else { return }
+                if self.debounceEnabled {
+                    self.handleSearch(for: text)
+                }
             }
     }
 
@@ -164,12 +168,15 @@ class FoodSearchViewModel: ObservableObject {
 
         dataTask?.resume()
     }
-
+    
     func selectSuggestion(_ foodName: String) {
+        debounceEnabled = false
         query = foodName
         fetchNutrition(for: foodName)
-    }
-}
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.debounceEnabled = true
+        }
+    }}
 
 
 // FoodSearchView.swift
