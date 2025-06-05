@@ -253,15 +253,35 @@ struct FoodSearchView: View {
 
                 if !viewModel.analyzedFoods.isEmpty {
                     List(viewModel.analyzedFoods) { food in
-                        VStack(alignment: .leading) {
-                            Text(food.food_name).font(.headline)
-                            if let qty = food.serving_qty, let unit = food.serving_unit {
-                                Text("\(qty) \(unit)").font(.subheadline)
+                        
+                        HStack(alignment: .center, spacing: 12) {
+                            if let imageUrl = food.photo?.thumb, let url = URL(string: imageUrl) {
+                                AsyncImage(url: url) { image in
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 64, height: 64)
+                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                } placeholder: {
+                                    Rectangle()
+                                        .fill(Color.gray.opacity(0.2))
+                                        .frame(width: 64, height: 64)
+                                        .cornerRadius(10)
+                                }
                             }
-                            if let cal = food.nf_calories {
-                                Text("Calories: \(Int(cal))").font(.subheadline)
+                            
+                            VStack(alignment: .leading) {
+                                Text(food.food_name).font(.headline)
+                                if let qty = food.serving_qty, let unit = food.serving_unit {
+                                    Text("\(qty) \(unit)").font(.subheadline)
+                                }
+                                if let cal = food.nf_calories {
+                                    Text("Calories: \(Int(cal))").font(.subheadline)
+                                }
                             }
+                            
                         }
+                        
                     }
                 } else if !viewModel.query.isEmpty && !viewModel.isLoading && viewModel.suggestions.isEmpty {
                     Text("No results found.")
