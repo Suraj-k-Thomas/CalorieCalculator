@@ -1,10 +1,3 @@
-//
-//  CalorieTrackerViewModel.swift
-//  CalorieCalculator
-//
-//  Created by Suraj  Thomas on 10/06/25.
-//
-
 import Foundation
 import SwiftUI
 
@@ -18,15 +11,9 @@ class CalorieTrackerViewModel: ObservableObject {
     @Published var trackedFoods: [Food] = []
     @Published var nutritionData: NutritionData = NutritionData(calories: 0, fat: 0, fiber: 0, carbs: 0, protein: 0)
 
-    let foodSearchViewModel: FoodSearchViewModel
-
     enum Tab {
         case calorie
         case recipe
-    }
-
-    init(foodSearchViewModel: FoodSearchViewModel = FoodSearchViewModel()) {
-        self.foodSearchViewModel = foodSearchViewModel
     }
 
     func addFood(_ food: Food) {
@@ -40,7 +27,6 @@ class CalorieTrackerViewModel: ObservableObject {
         let totalFat = trackedFoods.reduce(0) { $0 + ($1.nf_total_fat ?? 0) }
         let totalCarbs = trackedFoods.reduce(0) { $0 + ($1.nf_total_carbohydrate ?? 0) }
         let totalProtein = trackedFoods.reduce(0) { $0 + ($1.nf_protein ?? 0) }
-        // Fiber not provided by API, set to 0
         nutritionData = NutritionData(calories: totalCalories, fat: totalFat, fiber: 0, carbs: totalCarbs, protein: totalProtein)
     }
 

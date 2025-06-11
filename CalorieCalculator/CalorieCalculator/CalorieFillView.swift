@@ -1,16 +1,9 @@
 
 import SwiftUI
 
-
-// CalorieFillView.swift
 struct CalorieFillView: View {
-    @State private var nutrition = NutritionData(
-        calories: 1120,
-        fat: 120,
-        fiber: 220,
-        carbs: 53,
-        protein: 15
-    )
+    let nutritionData: NutritionData
+
     var body: some View {
         GeometryReader { geo in
             let height = geo.size.height
@@ -29,8 +22,8 @@ struct CalorieFillView: View {
                         .font(.headline)
                     HStack(alignment: .top, spacing: width * 0.04) {
                         SilhouetteFillView(
-                            fillProgress: nutrition.calorieFillProgress,
-                            calorieValue: nutrition.calories
+                            fillProgress: nutritionData.calorieFillProgress,
+                            calorieValue: nutritionData.calories
                         )
                         .frame(width: width * 0.52, height: height * 0.85)
 
@@ -40,7 +33,7 @@ struct CalorieFillView: View {
                                     .font(.caption)
                                     .foregroundColor(.white.opacity(0.7))
 
-                                Text("\(Int(nutrition.calories))/1500")
+                                Text("\(Int(nutritionData.calories))/1500")
                                     .font(.title)
                                     .bold()
                                     .foregroundColor(.white)
@@ -48,10 +41,10 @@ struct CalorieFillView: View {
                                     .lineLimit(1)
                             }
 
-                            NutrientProgressView(label: "FAT", value: CGFloat(nutrition.fat), max: 100)
-                            NutrientProgressView(label: "FIBRE", value: CGFloat(nutrition.fiber), max: 100)
-                            NutrientProgressView(label: "CARBS", value: CGFloat(nutrition.carbs), max: 100)
-                            NutrientProgressView(label: "PROTEIN", value: CGFloat(nutrition.protein), max: 100)
+                            NutrientProgressView(label: "FAT", value: CGFloat(nutritionData.fat), max: 100)
+                            NutrientProgressView(label: "FIBRE", value: CGFloat(nutritionData.fiber), max: 100)
+                            NutrientProgressView(label: "CARBS", value: CGFloat(nutritionData.carbs), max: 100)
+                            NutrientProgressView(label: "PROTEIN", value: CGFloat(nutritionData.protein), max: 100)
                         }
                         .frame(height: height * 0.85)
                     }
@@ -62,10 +55,6 @@ struct CalorieFillView: View {
             }
         }
     }
-
-
-
-
 }
 
 
