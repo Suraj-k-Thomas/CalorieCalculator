@@ -6,7 +6,7 @@ struct CalorieTrackerApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                CalorieTrackerView()
+                CalorieTrackerView(viewModel: CalorieTrackerViewModel())
                 //FoodSearchView()
             }
         }
@@ -66,17 +66,21 @@ struct FoodResponse: Decodable {
 import Foundation
 import Combine
 
+
 class FoodSearchViewModel: ObservableObject {
     @Published var query = ""
     @Published var suggestions: [Food] = []
     @Published var analyzedFoods: [Food] = []
     @Published var isLoading = false
+    @Published var errorMessage: String?
     @Published var debounceEnabled = true
 
     private var debounceTimer: AnyCancellable?
     private var dataTask: URLSessionDataTask?
+    private weak var calorieTrackerViewModel: CalorieTrackerViewModel?
 
-    init() {
+    init(calorieTrackerViewModel: CalorieTrackerViewModel? = nil) {
+        self.calorieTrackerViewModel = calorieTrackerViewModel
         debounceTimer = $query
             .removeDuplicates()
             .debounce(for: .milliseconds(400), scheduler: DispatchQueue.main)
@@ -92,6 +96,7 @@ class FoodSearchViewModel: ObservableObject {
         if text.count < 3 {
             suggestions = []
             analyzedFoods = []
+            errorMessage = nil
             return
         }
 
@@ -109,9 +114,14 @@ class FoodSearchViewModel: ObservableObject {
 
     private func fetchSuggestions(for query: String) {
         isLoading = true
+        errorMessage = nil
         dataTask?.cancel()
 
-        guard let url = URL(string: "https://trackapi.nutritionix.com/v2/search/instant?query=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")") else { return }
+        guard let url = URL(string: "https://trackapi.nutritionix.com/v2/search/instant?query=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")") else {
+            errorMessage = "Invalid URL"
+            isLoading = false
+            return
+        }
 
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -119,18 +129,24 @@ class FoodSearchViewModel: ObservableObject {
         request.addValue("117f3129dfb287891e05355dde6cfaf8", forHTTPHeaderField: "x-app-key")
 
         dataTask = URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
-            DispatchQueue.main.async { self?.isLoading = false }
+            DispatchQueue.main.async {
+                self?.isLoading = false
+                if let error = error {
+                    self?.errorMessage = "Search failed: \(error.localizedDescription)"
+                    return
+                }
+                guard let data = data else {
+                    self?.errorMessage = "No data received"
+                    return
+                }
 
-            guard let data = data, error == nil else { return }
-
-            do {
-                let result = try JSONDecoder().decode(InstantSearchResponse.self, from: data)
-                DispatchQueue.main.async {
+                do {
+                    let result = try JSONDecoder().decode(InstantSearchResponse.self, from: data)
                     self?.suggestions = result.common
                     self?.analyzedFoods = []
+                } catch {
+                    self?.errorMessage = "Failed to parse suggestions"
                 }
-            } catch {
-                print("Suggestion decode error: \(error)")
             }
         }
 
@@ -139,9 +155,14 @@ class FoodSearchViewModel: ObservableObject {
 
     func fetchNutrition(for text: String) {
         isLoading = true
+        errorMessage = nil
         dataTask?.cancel()
 
-        guard let url = URL(string: "https://trackapi.nutritionix.com/v2/natural/nutrients") else { return }
+        guard let url = URL(string: "https://trackapi.nutritionix.com/v2/natural/nutrients") else {
+            errorMessage = "Invalid URL"
+            isLoading = false
+            return
+        }
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -151,24 +172,30 @@ class FoodSearchViewModel: ObservableObject {
         request.httpBody = try? JSONSerialization.data(withJSONObject: ["query": text])
 
         dataTask = URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
-            DispatchQueue.main.async { self?.isLoading = false }
+            DispatchQueue.main.async {
+                self?.isLoading = false
+                if let error = error {
+                    self?.errorMessage = "Analysis failed: \(error.localizedDescription)"
+                    return
+                }
+                guard let data = data else {
+                    self?.errorMessage = "No data received"
+                    return
+                }
 
-            guard let data = data, error == nil else { return }
-
-            do {
-                let result = try JSONDecoder().decode(FoodResponse.self, from: data)
-                DispatchQueue.main.async {
+                do {
+                    let result = try JSONDecoder().decode(FoodResponse.self, from: data)
                     self?.analyzedFoods = result.foods
                     self?.suggestions = []
+                } catch {
+                    self?.errorMessage = "Failed to parse nutrition data"
                 }
-            } catch {
-                print("Nutrition decode error: \(error)")
             }
         }
 
         dataTask?.resume()
     }
-    
+
     func selectSuggestion(_ foodName: String) {
         debounceEnabled = false
         query = foodName
@@ -176,12 +203,149 @@ class FoodSearchViewModel: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.debounceEnabled = true
         }
-    }}
+    }
+
+    func addFoodToTracker(_ food: Food) {
+        calorieTrackerViewModel?.addFood(food)
+    }
+}
+
 
 
 // FoodSearchView.swift
 import SwiftUI
 
+
+
+struct FoodSearchView: View {
+    @StateObject private var viewModel: FoodSearchViewModel
+
+    init(viewModel: FoodSearchViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
+
+    var body: some View {
+        NavigationView {
+            VStack(spacing: 0) {
+                TextField("Search food...", text: $viewModel.query)
+                    .padding(12)
+                    .background(Color(.systemGray6))
+                    .cornerRadius(8)
+                    .padding()
+
+                if viewModel.isLoading {
+                    ProgressView("Searching...")
+                        .padding()
+                }
+
+                if !viewModel.suggestions.isEmpty {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 0) {
+                            ForEach(viewModel.suggestions.prefix(10)) { food in
+                                Button {
+                                    viewModel.selectSuggestion(food.food_name)
+                                } label: {
+                                    HStack(alignment: .center, spacing: 12) {
+                                        if let imageUrl = food.photo?.thumb, let url = URL(string: imageUrl) {
+                                            AsyncImage(url: url) { image in
+                                                image
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fill)
+                                                    .frame(width: 60, height: 60)
+                                                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                                            } placeholder: {
+                                                Rectangle()
+                                                    .fill(Color.gray.opacity(0.2))
+                                                    .frame(width: 60, height: 60)
+                                                    .cornerRadius(8)
+                                            }
+                                        }
+
+                                        VStack(alignment: .leading, spacing: 4) {
+                                            Text(food.food_name.capitalized)
+                                                .font(.body)
+                                                .fontWeight(.medium)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+
+                                            if let qty = food.serving_qty, let unit = food.serving_unit {
+                                                Text("Serving: \(qty.cleanString) \(unit)")
+                                                    .font(.caption)
+                                                    .foregroundColor(.secondary)
+                                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                            }
+                                        }
+                                        .frame(maxHeight: .infinity, alignment: .center)
+                                    }
+                                    .padding(.vertical, 16)
+                                    .frame(maxWidth: .infinity)
+                                }
+
+                                Divider()
+                            }
+                        }
+                        .background(Color.white)
+                        .cornerRadius(8)
+                        .shadow(radius: 4)
+                        .padding([.horizontal, .bottom])
+                    }
+                    .frame(maxHeight: 300)
+                }
+
+                if !viewModel.analyzedFoods.isEmpty {
+                    List(viewModel.analyzedFoods) { food in
+                        HStack(alignment: .center, spacing: 12) {
+                            if let imageUrl = food.photo?.thumb, let url = URL(string: imageUrl) {
+                                AsyncImage(url: url) { image in
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 64, height: 64)
+                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                } placeholder: {
+                                    Rectangle()
+                                        .fill(Color.gray.opacity(0.2))
+                                        .frame(width: 64, height: 64)
+                                        .cornerRadius(10)
+                                }
+                            }
+
+                            VStack(alignment: .leading) {
+                                Text(food.food_name).font(.headline)
+                                if let qty = food.serving_qty, let unit = food.serving_unit {
+                                    Text("\(qty) \(unit)").font(.subheadline)
+                                }
+                                if let cal = food.nf_calories {
+                                    Text("Calories: \(Int(cal))").font(.subheadline)
+                                }
+                            }
+                        }
+                        .onTapGesture {
+                            viewModel.addFoodToTracker(food)
+                        }
+                    }
+                } else if !viewModel.query.isEmpty && !viewModel.isLoading && viewModel.suggestions.isEmpty {
+                    Text("No results found.")
+                        .foregroundColor(.secondary)
+                        .padding()
+                }
+
+                Spacer()
+            }
+            .navigationTitle("Search Food")
+        }
+    }
+}
+
+extension Double {
+    var cleanString: String {
+        return truncatingRemainder(dividingBy: 1) == 0 ?
+            String(format: "%.0f", self) : String(self)
+    }
+}
+
+
+
+/*
 struct FoodSearchView: View {
     @StateObject private var viewModel = FoodSearchViewModel()
 
@@ -306,3 +470,4 @@ extension Double {
             String(format: "%.0f", self) : String(self)
     }
 }
+*/

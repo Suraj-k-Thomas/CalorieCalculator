@@ -1,17 +1,10 @@
-
 import SwiftUI
-// CalorieTrackerView.swift
+
 struct CalorieTrackerView: View {
-    @State private var selectedDate = Date()
-    @State private var showDatePicker = false
-    @State private var selectedTab: Tab = .calorie
-    @State private var showFillView = false
-    @State private var showActionSheet = false
-    @State private var showFoodSearch = false
-    
-    enum Tab {
-        case calorie
-        case recipe
+    @ObservedObject var viewModel: CalorieTrackerViewModel
+
+    init(viewModel: CalorieTrackerViewModel) {
+        self.viewModel = viewModel
     }
 
     var body: some View {
@@ -54,29 +47,37 @@ struct CalorieTrackerView: View {
             .padding(.horizontal)
 
             HStack {
-                Button(action: { showDatePicker.toggle() }) {
+                Button(action: { viewModel.showDatePicker.toggle() }) {
                     Text("Your Progress").font(.title3).bold()
                 }
                 Spacer()
-                Button(action: { showDatePicker.toggle() }) {
+                Button(action: { viewModel.showDatePicker.toggle() }) {
                     HStack {
-                        Text(formattedDate(selectedDate))
+                        Text(viewModel.formattedDate(viewModel.selectedDate))
                         Image(systemName: "calendar")
                     }
                 }
             }
             .padding(.horizontal)
 
-            if selectedTab == .calorie {
-                Text("Calorie Tracker Screen")
-            } else if selectedTab == .recipe {
+            if viewModel.selectedTab == .calorie {
+                List(viewModel.trackedFoods) { food in
+                    HStack {
+                        Text(food.food_name.capitalized).font(.headline)
+                        Spacer()
+                        if let calories = food.nf_calories {
+                            Text("\(Int(calories)) kcal").font(.subheadline)
+                        }
+                    }
+                }
+            } else if viewModel.selectedTab == .recipe {
                 Text("Recipe Screen Placeholder")
             }
 
             HStack(spacing: 16) {
-                ProgressCard(title: "Calorie", unit: "kcal/day", percentage: 0)
-                ProgressCard(title: "Protein", unit: "grams", percentage: 0)
-                ProgressCard(title: "Carbs", unit: "grams", percentage: 0)
+                ProgressCard(title: "Calorie", unit: "kcal/day", percentage: viewModel.getProgressPercentage(for: "calorie"))
+                ProgressCard(title: "Protein", unit: "grams", percentage: viewModel.getProgressPercentage(for: "protein"))
+                ProgressCard(title: "Carbs", unit: "grams", percentage: viewModel.getProgressPercentage(for: "carbs"))
             }
             .padding(.horizontal)
 
@@ -85,21 +86,21 @@ struct CalorieTrackerView: View {
             ZStack {
                 HStack {
                     Spacer()
-                    BottomTabItem(title: "Calorie", image: "flame.fill", isActive: selectedTab == .calorie) {
-                        selectedTab = .calorie
+                    BottomTabItem(title: "Calorie", image: "flame.fill", isActive: viewModel.selectedTab == .calorie) {
+                        viewModel.toggleTab(.calorie)
                     }
                     Spacer()
                     Spacer()
-                    BottomTabItem(title: "Recipe", image: "book.fill", isActive: selectedTab == .recipe) {
-                        selectedTab = .recipe
+                    BottomTabItem(title: "Recipe", image: "book.fill", isActive: viewModel.selectedTab == .recipe) {
+                        viewModel.toggleTab(.recipe)
                     }
                     Spacer()
                 }
                 .padding(.vertical, 10)
                 .background(Color.white.shadow(radius: 5))
 
-                Button(action: { showFillView = true
-                    showActionSheet.toggle()
+                Button(action: {
+                    viewModel.showActionSheet.toggle()
                 }) {
                     Image(systemName: "plus")
                         .font(.title)
@@ -110,31 +111,27 @@ struct CalorieTrackerView: View {
                         .shadow(radius: 5)
                 }
                 .offset(y: -20)
-                .actionSheet(isPresented: $showActionSheet) {
-                                ActionSheet(title: Text("What would you like to log?"), buttons: [
-                                    .default(Text("🍱 Food")) { showFoodSearch = true },
-                                    .default(Text("🩸 Sugar")) { print("Log sugar") },
-                                    .default(Text("🏋️‍♂️ Exercise")) { print("Log exercise") },
-                                    .default(Text("⚖️ Weight")) { print("Log weight") },
-                                    .cancel()
-                                ])
-                            }
-                
-                .navigationDestination(isPresented: $showFoodSearch) {
-                    FoodSearchView()
+                .actionSheet(isPresented: $viewModel.showActionSheet) {
+                    ActionSheet(title: Text("What would you like to log?"), buttons: [
+                        .default(Text("🍱 Food")) { viewModel.showFoodSearch = true },
+                        .default(Text("🩸 Sugar")) { viewModel.logSugar() },
+                        .default(Text("🏋️‍♂️ Exercise")) { viewModel.logExercise() },
+                        .default(Text("⚖️ Weight")) { viewModel.logWeight() },
+                        .cancel()
+                    ])
                 }
             }
         }
-        .sheet(isPresented: $showDatePicker) {
-            DatePicker("Select Date", selection: $selectedDate, displayedComponents: .date)
+        .sheet(isPresented: $viewModel.showDatePicker) {
+            DatePicker("Select Date", selection: $viewModel.selectedDate, displayedComponents: .date)
                 .datePickerStyle(.graphical)
                 .padding()
         }
-    }
-
-    private func formattedDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
-        return formatter.string(from: date)
+        .sheet(isPresented: $viewModel.showFillView) {
+            CalorieFillView(nutritionData: viewModel.nutritionData)
+        }
+        .navigationDestination(isPresented: $viewModel.showFoodSearch) {
+            FoodSearchView(viewModel: FoodSearchViewModel(calorieTrackerViewModel: viewModel))
+        }
     }
 }
